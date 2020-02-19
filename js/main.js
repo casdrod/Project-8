@@ -37,25 +37,23 @@ function generateEmployees(data) {
 
 // Function to create popup boxes //
 function generateModal(index) {
-    let { name,
+    let {picture,
+        name,
         email,
         location: {street, city, state, postcode},
         cell,
-        dob,
-        picture } = employees[index];
+        dob} = employees[index];
 
     let date = new Date(dob.date);
 
     var modalHTML = `
-        <div class="top-container">
+        <div class="modal-container" data-index="${index}">
             <image src="${picture['large']}">
             <ul>
                 <li><h2 class="employee_name">${name['first']} ${name['last']}</h2></li>
                 <li>${email}</li>
                 <li>${city}</li>
             </ul>
-        </div>
-        <div class="bottom-container">
             <ul>
                 <li>${cell}</li>
                 <li>${location}</li>
