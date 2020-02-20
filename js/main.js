@@ -1,12 +1,11 @@
-let employees = [];
-const modal = document.querySelector('.modal');
-const modalContent = document.querySelector('.modal-content');
+const modal = document.querySelector('#myModal');
+const modalContainer = document.querySelector('.modal-container');
 const gridContainer = document.querySelector('.grid-container');
 const mainContainer = document.querySelector('.main-container');
-
+const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,phone,picture&nat=US'
 
 // FETCHING RANDOM USERS //
-fetch('https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture')
+fetch(userUrl)
     .then(response => response.json())
     .then(data => generateEmployees(data.results))
     .catch(err => console.log(err))
@@ -16,67 +15,76 @@ fetch('https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,pi
 //************************//
 //****HELPER FUNCTIONS****//
 //************************//
-// Function to create employee boxes //
+// FUNCTION TO CREATE EMPLOYEE BOXES //
 function generateEmployees(data) {
     const employees = data;
     var statusHTML = '';
     employees.forEach((employee, index) => {
+        let picture = employee.picture.large;
+        let firstName = employee.name.first;
+        let lastName = employee.name.last;
+        let email = employee.email;
+        let city = employee.location.city;
+
         statusHTML += `
-            <div class="employee-container" data-index="${index}">
-                <img src="${employee.picture['large']}" alt="employee's picture">
+            <div class="card" data-index="${index}">
+                <img src="${picture}" alt="employee's picture">
                 <ul>
-                    <li><h2 class="employee_name">${employee.name['first']}${employee.name['last']}</h2></li>
-                    <li>${employee.email}</li>
-                    <li>${employee.location['city']}</li>
+                    <li><h2 class="employee_name">${firstName} ${lastName}</h2></li>
+                    <li>${email}</li>
+                    <li>${city}</li>
                 </ul>
             </div>
-            `;
+        `;
     });
     gridContainer.innerHTML = statusHTML;
+
+    gridContainer.querySelectorAll('.card').forEach((card, index) => {
+        card.addEventListener('click', () => { 
+            generateModal(employees[index]);
+        }); 
+    })
 }
 
-// Function to create popup boxes //
-function generateModal(index) {
-    let {picture,
-        name,
-        email,
-        location: {street, city, state, postcode},
-        cell,
-        dob} = employees[index];
+// FUNCTION TO CREATE HTML FOR MODAL //
+function generateModal(employee) {
+    let picture = employee.picture.large;
+    let firstName = employee.name.first;
+    let lastName = employee.name.last;
+    let email = employee.email;
+    let phone = employee.phone;
+    let address = `${employee.location.street.number} 
+                    ${employee.location.street.name}<br>
+                    ${employee.location.city}, 
+                    ${employee.location.state} 
+                    ${employee.location.postcode}
+                    `;
+    let state = employee.location.street.state;
+    let dob = new Date(Date.parse(employee.dob.date)).toLocaleDateString(navigator.language);
 
-    let date = new Date(dob.date);
-
-    var modalHTML = `
-        <div class="modal-container" data-index="${index}">
-            <image src="${picture['large']}">
-            <ul>
-                <li><h2 class="employee_name">${name['first']} ${name['last']}</h2></li>
-                <li>${email}</li>
-                <li>${city}</li>
-            </ul>
-            <ul>
-                <li>${cell}</li>
-                <li>${location}</li>
-                <li>Birthday:${date}</li>
-            </ul>
+    modalContainer.innerHTML = `
+        <div class="modal-box">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <image src="${picture}" alt="employee's picture" class="modal-picture">
+                <h2 class="employee_name">${firstName} ${lastName}</h2>
+                <p>${email}</p>
+                <hr>
+                <p>${phone}</p>
+                <p>${address}</p>
+                <p>Birthday: ${dob}</p>
+            </div>
         </div>
     `;
     
-    modalContent.innerHTML = modalHTML;
+    modalContainer.style.display = 'block';
 }
 
 
-//****Event Listener****//
-gridContainer.addEventListener('click', e => { 
-    if (e.target !== gridContainer) {
-        const employee = e.target.closest(".employee-container");
-        const index = employee.getAttribute('data-index');
-
-        generateModal(index);
-        modal.style.display = 'block'; 
+// EVENT LISTENER FOR CLOSE BUTTON //
+mainContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('close') || e.target.classList.contains('modal-container')) {
+        document.querySelector('.modal-box').innerHTML = ' ';
+        modal.style.display = 'none';
     }
-}); 
-
-
-
-// go back an simplify with variables
+})
