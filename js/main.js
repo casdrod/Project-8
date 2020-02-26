@@ -2,7 +2,7 @@ const modal = document.querySelector('#myModal');
 const modalContainer = document.querySelector('.modal-container');
 const gridContainer = document.querySelector('.grid-container');
 const mainContainer = document.querySelector('.main-container');
-const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,phone,picture&nat=US'
+const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=US';
 
 // FETCHING RANDOM USERS //
 fetch(userUrl)
@@ -52,7 +52,7 @@ function generateModal(employee) {
     let firstName = employee.name.first;
     let lastName = employee.name.last;
     let email = employee.email;
-    let phone = employee.phone;
+    let cell = employee.cell;
     let address = `${employee.location.street.number} 
                     ${employee.location.street.name}<br>
                     ${employee.location.city}, 
@@ -65,14 +65,22 @@ function generateModal(employee) {
     modalContainer.innerHTML = `
         <div class="modal-box">
             <span class="close">&times;</span>
-            <div class="modal-content">
-                <image src="${picture}" alt="employee's picture" class="modal-picture">
-                <h2 class="employee_name">${firstName} ${lastName}</h2>
-                <p>${email}</p>
-                <hr>
-                <p>${phone}</p>
-                <p>${address}</p>
-                <p>Birthday: ${dob}</p>
+            <div class="modal-info">
+                <div class="arrow">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="modal-content">
+                    <image src="${picture}" alt="employee's picture" class="modal-picture">
+                    <h2 class="employee_name">${firstName} ${lastName}</h2>
+                    <p>${email}</p>
+                    <hr>
+                    <p>${cell}</p>
+                    <p>${address}</p>
+                    <p>Birthday: ${dob}</p>
+                </div>
+                <div class="arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
             </div>
         </div>
     `;
@@ -82,9 +90,18 @@ function generateModal(employee) {
 
 
 // EVENT LISTENER FOR CLOSE BUTTON //
-mainContainer.addEventListener('click', (e) => {
+modalContainer.addEventListener('click', (e) => {
     if (e.target.classList.contains('close') || e.target.classList.contains('modal-container')) {
-        document.querySelector('.modal-box').innerHTML = ' ';
+        document.querySelector('.modal-box').innerHTML = "";
         modal.style.display = 'none';
     }
 })
+
+// // EVENT LISTENER FOR ARROW BUTTONS //
+// document.querySelector('.fa-chevron-right').addEventListener('click', () => {
+
+// })
+
+// function prevItem() {
+
+// }

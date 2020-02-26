@@ -97,7 +97,7 @@ img {
     right: 0;
     top: 0;
     bottom: 0;
-    width: 320px;
+    width: 350px;
     height: 475px;
     margin: auto;
     background: rgba(255, 255, 255, 1);
@@ -105,25 +105,26 @@ img {
     border: 1px solid rgba(100, 100, 100, 0.3);
     transition: 3s ease-out;
     font-family: 'Open Sans', sans-serif;
+
 }
 
 /* The Close Button */
 .close {
     color: black;
     position: relative;
-    left: 295px;
+    left: 320px;
     font-size: 28px;
     font-weight: bold;
+    transition: scale 1s linear;
 }
 
 .close:hover {
     cursor: pointer;
     transform: scale(1.2);
-    transition: 1s scale;
 }
 
 .modal-content {
-    margin: 10px;
+    margin: 10px auto auto auto;
     text-align: center;
 }
 
@@ -133,7 +134,19 @@ img {
 }
 
 .modal-picture {
-    width: 50%;
+    width: 150px;
+    margin: 0;
+}
+
+.modal-info {
+    display: flex;
+    margin: 0 auto;
+    height: calc(100% - 31px);
+}
+
+.arrow {
+    margin: auto 10px;
+    height: 20px;
 }
 
 
