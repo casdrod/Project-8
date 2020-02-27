@@ -97,8 +97,8 @@ img {
     right: 0;
     top: 0;
     bottom: 0;
-    width: 350px;
-    height: 500px;
+    width: 375px;
+    height: 525px;
     margin: auto;
     background: rgba(255, 255, 255, 1);
     border-radius: 0.25em;
@@ -112,7 +112,7 @@ img {
 .close {
     color: black;
     position: relative;
-    left: 325px;
+    left: 350px;
     font-size: 28px;
     font-weight: bold;
     display: inline-block;
@@ -145,9 +145,7 @@ img {
 }
 
 .arrow {
-    padding: 10px;
-    margin: auto 10px;
-    height: 20px;
+    margin: auto 20px;
 }
 
 .arrow:hover {
