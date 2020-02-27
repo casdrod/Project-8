@@ -3,13 +3,19 @@ const modalContainer = document.querySelector('.modal-container');
 const gridContainer = document.querySelector('.grid-container');
 const mainContainer = document.querySelector('.main-container');
 const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=US';
+let employeeArr = [];
 
 // FETCHING RANDOM USERS //
 fetch(userUrl)
     .then(response => response.json())
-    .then(data => generateEmployees(data.results))
+    .then(data => data.results)
+    .then(data => {
+        employeeArr.push(data);
+        console.log(employeeArr[0]);
+    })
     .catch(err => console.log(err))
 
+// console.log(employeeArr);
 
 
 //************************//
@@ -40,10 +46,12 @@ function generateEmployees(data) {
     gridContainer.innerHTML = statusHTML;
 
     gridContainer.querySelectorAll('.card').forEach((card, index) => {
-        card.addEventListener('click', () => { 
+        card.addEventListener('click', (e) => { 
             generateModal(employees[index]);
         }); 
     })
+
+
 }
 
 // FUNCTION TO CREATE HTML FOR MODAL //
@@ -67,7 +75,7 @@ function generateModal(employee) {
             <span class="close">&times;</span>
             <div class="modal-info">
                 <div class="arrow">
-                    <i class="fas fa-chevron-left"></i>
+                    <i class="fas fa-chevron-left prev-btn"></i>
                 </div>
                 <div class="modal-content">
                     <image src="${picture}" alt="employee's picture" class="modal-picture">
@@ -79,13 +87,23 @@ function generateModal(employee) {
                     <p>Birthday: ${dob}</p>
                 </div>
                 <div class="arrow">
-                    <i class="fas fa-chevron-right"></i>
+                    <i class="fas fa-chevron-right next-btn"></i>
                 </div>
             </div>
         </div>
     `;
     
     modalContainer.style.display = 'block';
+
+    var i = 0;
+
+    function nextItem() {
+        i = i + 1;
+        console.log(employeeArr[0]);
+    }
+
+    nextItem();
+
 }
 
 
@@ -96,12 +114,3 @@ modalContainer.addEventListener('click', (e) => {
         modal.style.display = 'none';
     }
 })
-
-// // EVENT LISTENER FOR ARROW BUTTONS //
-// document.querySelector('.fa-chevron-right').addEventListener('click', () => {
-
-// })
-
-// function prevItem() {
-
-// }
