@@ -100,6 +100,15 @@ function generateModal(employee) {
     modalContainer.style.display = 'block';
     modalHtml(employee);
 
+    // Function for Previous Item Button
+    function prevItem(employee) {
+        if (i === 0) {
+            i = employees.length;
+        }
+        i--;
+        modalHtml(employees[i]);
+    }
+
     // Function for Next Item Button //
     var i = employees.indexOf(employee);
     function nextItem(employee) {
@@ -110,14 +119,6 @@ function generateModal(employee) {
         modalHtml(employees[i]);
     }
 
-    function prevItem(employee) {
-        i = i - 1;
-        // if (i === 0) {
-        //     i = employees.length;
-        // }
-        modalHtml(employees[i]);
-        console.log(i);
-    }
 }
 
 
