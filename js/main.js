@@ -4,27 +4,25 @@ const gridContainer = document.querySelector('.grid-container');
 const mainContainer = document.querySelector('.main-container');
 const search = document.querySelector('.search');
 const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture,login&nat=US';
-let employeesArray = [];
+let employees = [];
 
 // FETCHING RANDOM USERS //
 fetch(userUrl)
     .then(response => response.json())
     .then(data => data.results)
     .then(data => {data.forEach(element => { 
-        employeesArray.push(element);
+        employees.push(element);
     });
     })
-    .then(data => generateEmployees(employeesArray))
+    .then(data => generateEmployees(employees))
     .catch(err => console.log(err))
 
-console.log(employeesArray);
 
 //************************//
 //****HELPER FUNCTIONS****//
 //************************//
 // FUNCTION TO CREATE EMPLOYEE BOXES //
-function generateEmployees(employeesArray) {
-    const employees = employeesArray;
+function generateEmployees(employees) {
     var statusHTML = '';
     employees.forEach((employee, index) => {
         let picture = employee.picture.large;
@@ -137,8 +135,10 @@ modalContainer.addEventListener('click', (e) => {
 
 // SEARCH BAR //
 
+console.log(employees);
 
-
+let filteredEmployees = employees.filter(employee => employee.name);
+console.log(filteredEmployees);
 
 
 // const searchBox = document.querySelector('.searchBox');
