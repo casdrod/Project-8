@@ -2,28 +2,29 @@ const modal = document.querySelector('#myModal');
 const modalContainer = document.querySelector('.modal-container');
 const gridContainer = document.querySelector('.grid-container');
 const mainContainer = document.querySelector('.main-container');
-const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=US';
-let employees = [];
+const search = document.querySelector('.search');
+const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture,login&nat=US';
+let employeesArray = [];
 
 // FETCHING RANDOM USERS //
 fetch(userUrl)
     .then(response => response.json())
     .then(data => data.results)
-    .then(data => {
-        employees.push(data);
-        employees = employees[0];
-        generateEmployees(employees);
+    .then(data => {data.forEach(element => { 
+        employeesArray.push(element);
+    });
     })
+    .then(data => generateEmployees(employeesArray))
     .catch(err => console.log(err))
 
+console.log(employeesArray);
 
 //************************//
 //****HELPER FUNCTIONS****//
 //************************//
 // FUNCTION TO CREATE EMPLOYEE BOXES //
-function generateEmployees(data) {
-    const employees = data;
-    console.log(employees.length);
+function generateEmployees(employeesArray) {
+    const employees = employeesArray;
     var statusHTML = '';
     employees.forEach((employee, index) => {
         let picture = employee.picture.large;
@@ -31,15 +32,17 @@ function generateEmployees(data) {
         let lastName = employee.name.last;
         let email = employee.email;
         let city = employee.location.city;
+        let userName = employee.login.username;
 
         statusHTML += `
             <div class="card" data-index="${index}">
                 <img src="${picture}" alt="employee's picture">
-                <ul>
-                    <li><h2 class="employee_name">${firstName} ${lastName}</h2></li>
-                    <li>${email}</li>
-                    <li>${city}</li>
-                </ul>
+                <div class="user-info">
+                    <p><h2 class="employee_name">${firstName} ${lastName}</h2></p>
+                    <p>${userName}</p>
+                    <p>${email}</p>
+                    <p>${city}</p>
+                </div>
             </div>
         `;
     });
@@ -67,7 +70,7 @@ function generateModal(employee) {
                         <i class="fas fa-chevron-left prev-btn"></i>
                     </div>
                     <div class="modal-content">
-                        <image src="${employee.picture.large}" alt="employee's picture" class="modal-picture">
+                        <img class="modal-picture" src="${employee.picture.large}" alt="employee's picture">
                         <h2 class="employee_name">${employee.name.first} ${employee.name.last}</h2>
                         <p>${employee.email}</p>
                         <hr>
@@ -121,7 +124,9 @@ function generateModal(employee) {
 
 }
 
-
+//************************//
+//****EVENT LISTENERS****//
+//************************//
 // EVENT LISTENER FOR CLOSE BUTTON //
 modalContainer.addEventListener('click', (e) => {
     if (e.target.classList.contains('close') || e.target.classList.contains('modal-container')) {
@@ -129,3 +134,27 @@ modalContainer.addEventListener('click', (e) => {
         modal.style.display = 'none';
     }
 })
+
+// SEARCH BAR //
+
+
+
+
+
+// const searchBox = document.querySelector('.searchBox');
+// const cards = document.querySelectorAll('.card');
+
+// const filterSearch = event => {
+//     const searchTerm = event.target.value.toLowerCase();
+
+//     cards.forEach(card => {
+//         const name = card.querySelector('.employee_name').toLowerCase();
+//         if (name.indexOf(searchTerm) > -1) {
+//             card.style.display = '';
+//         } else {
+//             card.style.display = "none";
+//         }
+//     })
+// }
+
+// searchBox.addEventListener('keyup', filterSearch);
