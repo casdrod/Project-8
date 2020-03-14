@@ -36,10 +36,12 @@ function generateEmployees(employees) {
             <div class="card" data-index="${index}">
                 <img src="${picture}" alt="employee's picture">
                 <div class="user-info">
-                    <p><h2 class="employee_name">${firstName} ${lastName}</h2></p>
-                    <p>${userName}</p>
-                    <p>${email}</p>
-                    <p>${city}</p>
+                    <p class="employee-name">${firstName} ${lastName}</p>
+                    <div class="user-details">
+                        <p id="username">${userName}</p>
+                        <p>${email}</p>
+                        <p>${city}</p>
+                    </div>
                 </div>
             </div>
         `;
@@ -51,8 +53,8 @@ function generateEmployees(employees) {
             generateModal(employees[index]);
         }); 
     })
-
-
+    
+    searchEmployees(employees);
 }
 
 // FUNCTION TO CREATE HTML FOR MODAL //
@@ -69,7 +71,7 @@ function generateModal(employee) {
                     </div>
                     <div class="modal-content">
                         <img class="modal-picture" src="${employee.picture.large}" alt="employee's picture">
-                        <h2 class="employee_name">${employee.name.first} ${employee.name.last}</h2>
+                        <p class="employee-name">${employee.name.first} ${employee.name.last}</p>
                         <p>${employee.email}</p>
                         <hr>
                         <p>${employee.cell}</p>
@@ -122,9 +124,37 @@ function generateModal(employee) {
 
 }
 
-//************************//
-//****EVENT LISTENERS****//
-//************************//
+// SEARCH BOX FUNCTION//
+function searchEmployees(employees) {
+    const searchBox = document.querySelector('.searchBox');
+    const cards = document.querySelectorAll('.card');
+
+    // console.log(filteredEmployeeNames);
+
+    const filterSearch = event => {
+        const searchTerm = event.target.value.toLowerCase();
+
+        cards.forEach(card => {
+            const names = card.querySelector('.employee-name').textContent.toLowerCase();
+            const userNames = card.querySelector('#username').textContent.toLowerCase();
+            console.log(names);
+            console.log(userNames);
+
+            if (names.indexOf(searchTerm) > -1 || userNames.indexOf(searchTerm) > -1) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        })
+    }
+    searchBox.addEventListener('keyup', filterSearch);
+}
+
+
+// CALLING SEARCH BOX FUNCTION //
+searchEmployees();
+
+
 // EVENT LISTENER FOR CLOSE BUTTON //
 modalContainer.addEventListener('click', (e) => {
     if (e.target.classList.contains('close') || e.target.classList.contains('modal-container')) {
@@ -132,29 +162,3 @@ modalContainer.addEventListener('click', (e) => {
         modal.style.display = 'none';
     }
 })
-
-// SEARCH BAR //
-
-console.log(employees);
-
-let filteredEmployees = employees.filter(employee => employee.name);
-console.log(filteredEmployees);
-
-
-// const searchBox = document.querySelector('.searchBox');
-// const cards = document.querySelectorAll('.card');
-
-// const filterSearch = event => {
-//     const searchTerm = event.target.value.toLowerCase();
-
-//     cards.forEach(card => {
-//         const name = card.querySelector('.employee_name').toLowerCase();
-//         if (name.indexOf(searchTerm) > -1) {
-//             card.style.display = '';
-//         } else {
-//             card.style.display = "none";
-//         }
-//     })
-// }
-
-// searchBox.addEventListener('keyup', filterSearch);
