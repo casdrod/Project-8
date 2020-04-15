@@ -1,5 +1,5 @@
 html {
-    background-color: #fcfcfc;
+    background-color: #44281D;
 }
 
 body {
@@ -40,6 +40,7 @@ input:hover {
     font-family: 'Crimson Pro', serif;
     font-weight: 200;
     font-size: 32px;
+    color: #E4A788;
 }
 
 .grid-container {
@@ -58,6 +59,11 @@ input:hover {
     background-color: #fff;
     font-family: 'Merriweather', serif;
     align-content: center;
+    background: #97CE4C;
+}
+
+.card:nth-child(2n) {
+    background: #E4A788;
 }
 
 .card:hover {
@@ -121,6 +127,7 @@ input:hover {
     border: 1px solid rgba(100, 100, 100, 0.3);
     transition: 3s ease-out;
     font-family: 'Open Sans', sans-serif;
+    background: #F0E14A;
 }
 
 .modal-info {
