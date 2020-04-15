@@ -158,11 +158,10 @@ input:hover {
 
 .arrow {
     margin: 225px 20px;
-    transition: transform 0.3s;
 }
 
 .arrow:hover {
-    transform: scale(1.3);
+    transform: scale(1.2);
     cursor: pointer;
 }
 
