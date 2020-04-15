@@ -34,7 +34,9 @@ function generateEmployees(employees) {
 
         statusHTML += `
             <div class="card" data-index="${index}">
-                <img src="${picture}" alt="employee's picture">
+                <div class="pic-div">
+                    <img src="${picture}" alt="employee's picture">
+                </div>
                 <div class="user-info">
                     <p class="employee-name">${name}</p>
                     <div class="user-details">
@@ -70,7 +72,7 @@ function generateModal(employee) {
                     <div class="modal-content">
                         <img class="modal-picture" src="${employee.image}" alt="employee's picture">
                         <div class="modal-employee-info">
-                            <p class="employee-name">${employee.name}</p>
+                            <p class="modal-employee-name">${employee.name}</p>
                             <p>${employee.gender}</p>
                             <p>${employee.status}</p>
                             <p>${employee.species}</p>

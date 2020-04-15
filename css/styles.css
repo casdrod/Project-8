@@ -56,10 +56,9 @@ input:hover {
     padding: 20px;
     border: 2px solid #d3d3d3;
     border-radius: 10px;
-    background-color: #fff;
     font-family: 'Merriweather', serif;
-    align-content: center;
-    background: #97CE4C;
+    justify-content: center;
+    background-color: #97CE4C;
 }
 
 .card:nth-child(2n) {
@@ -72,9 +71,21 @@ input:hover {
     transition: all 0.5s;
 }
 
+.pic-div {
+    width: 100%;
+    display: flex;
+}
+
+.card img {
+    border-radius: 50%;
+    margin: 10px auto;
+    max-width: 130px;
+    max-height: 130px;
+}
+
 .user-info {
-    margin: auto auto auto 10px;
-    text-align: left;
+    margin: auto;
+    text-align: center;
 }
 
 .user-details p {
@@ -82,18 +93,13 @@ input:hover {
     opacity: 0.75;
 }
 
-.employee-name {
+.employee-name,
+.modal-employee-name {
     margin: 10px 0;
     font-size: 20px;
     font-weight: 550;
 }
 
-.card img {
-    border-radius: 50%;
-    margin: 10px;
-    max-width: 130px;
-    max-height: 130px;
-}
 
 
 /**** MODAL BOX ****/
@@ -119,7 +125,7 @@ input:hover {
     right: 0;
     top: 0;
     bottom: 0;
-    width: 375px;
+    width: 350px;
     height: 525px;
     margin: auto;
     background: rgba(255, 255, 255, 1);
@@ -133,7 +139,7 @@ input:hover {
 .modal-info {
     display: flex;
     margin: 0 auto;
-    height: calc(100% - 31px);
+    height: calc(100% - 41px);
 }
 
 .modal-content {
@@ -153,6 +159,7 @@ input:hover {
 
 .arrow {
     margin: auto 20px;
+    transition: transform 0.3s;
 }
 
 .arrow:hover {
@@ -166,14 +173,19 @@ input:hover {
     opacity: 0.5;
 }
 
+.fas {
+    font-size: 24px;
+}
+
 /* Close Button */
 .close {
     color: black;
     position: relative;
-    left: 350px;
-    font-size: 28px;
+    left: 320px;
+    font-size: 38px;
     font-weight: bold;
     display: inline-block;
+    transition: transform 0.3s;
 }
 
 .close:hover {
@@ -220,12 +232,35 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         grid-template-columns: 1fr 1fr 1fr;
         column-gap: 2em;
         row-gap: 2em;
-        /* width: 95%; */
         margin: 20px 0;
     }
 
     .card {
         display: flex;
         flex-wrap: wrap;    
+    }
+    
+    .pic-div {
+        width: auto;
+    }
+
+    .card img {
+        margin: 10px;
+    }
+
+    .user-info {
+        text-align: center;
+        margin: auto;
+    }
+
+    .employee-name {
+        max-width: 120px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .user-info {
+        margin: auto auto auto 10px;
+        text-align: left;
     }
 }
