@@ -131,7 +131,6 @@ input:hover {
     background: rgba(255, 255, 255, 1);
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
-    transition: 3s ease-out;
     font-family: 'Open Sans', sans-serif;
     background: #F0E14A;
 }
@@ -158,7 +157,7 @@ input:hover {
 }
 
 .arrow {
-    margin: auto 20px;
+    margin: 225px 20px;
     transition: transform 0.3s;
 }
 
@@ -254,7 +253,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     }
 
     .employee-name {
-        max-width: 120px;
+        max-width: 170px;
     }
 }
 
