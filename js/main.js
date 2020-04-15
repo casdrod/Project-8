@@ -3,7 +3,7 @@ const modalContainer = document.querySelector('.modal-container');
 const gridContainer = document.querySelector('.grid-container');
 const mainContainer = document.querySelector('.main-container');
 const search = document.querySelector('.search');
-const userUrl = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture,login&nat=US';
+const userUrl = 'https://rickandmortyapi.com/api/character/';
 let employees = [];
 
 // FETCHING RANDOM USERS //
@@ -11,7 +11,9 @@ fetch(userUrl)
     .then(response => response.json())
     .then(data => data.results)
     .then(data => {data.forEach(element => { 
-        employees.push(element);
+        if (element.id <= 12) {
+            employees.push(element);
+        }
     });
     })
     .then(data => generateEmployees(employees))
@@ -25,22 +27,19 @@ fetch(userUrl)
 function generateEmployees(employees) {
     var statusHTML = '';
     employees.forEach((employee, index) => {
-        let picture = employee.picture.large;
-        let firstName = employee.name.first;
-        let lastName = employee.name.last;
-        let email = employee.email;
-        let city = employee.location.city;
-        let userName = employee.login.username;
+        let picture = employee.image;
+        let name = employee.name;
+        let status = employee.status;
+        let species = employee.species;
 
         statusHTML += `
             <div class="card" data-index="${index}">
                 <img src="${picture}" alt="employee's picture">
                 <div class="user-info">
-                    <p class="employee-name">${firstName} ${lastName}</p>
+                    <p class="employee-name">${name}</p>
                     <div class="user-details">
-                        <p id="username">${userName}</p>
-                        <p>${email}</p>
-                        <p>${city}</p>
+                        <p>${status}</p>
+                        <p>${species}</p>
                     </div>
                 </div>
             </div>
@@ -61,7 +60,6 @@ function generateEmployees(employees) {
 function generateModal(employee) {
 
     function modalHtml(employee) {
-        let dob = new Date(Date.parse(employee.dob.date)).toLocaleDateString(navigator.language);
         modalContainer.innerHTML = `
             <div class="modal-box">
                 <span class="close">&times;</span>
@@ -70,17 +68,15 @@ function generateModal(employee) {
                         <i class="fas fa-chevron-left prev-btn"></i>
                     </div>
                     <div class="modal-content">
-                        <img class="modal-picture" src="${employee.picture.large}" alt="employee's picture">
-                        <p class="employee-name">${employee.name.first} ${employee.name.last}</p>
-                        <p>${employee.email}</p>
-                        <hr>
-                        <p>${employee.cell}</p>
-                        <p>${employee.location.street.number} 
-                            ${employee.location.street.name}<br>
-                            ${employee.location.city},<br>
-                            ${employee.location.state} 
-                            ${employee.location.postcode}</p>
-                        <p>Birthday: ${dob}</p>
+                        <img class="modal-picture" src="${employee.image}" alt="employee's picture">
+                        <div class="modal-employee-info">
+                            <p class="employee-name">${employee.name}</p>
+                            <p>${employee.gender}</p>
+                            <p>${employee.status}</p>
+                            <p>${employee.species}</p>
+                            <hr>
+                            <p>${employee.location.name}</p>
+                        </div>
                     </div>
                     <div class="arrow">
                         <i class="fas fa-chevron-right next-btn"></i>
@@ -136,11 +132,8 @@ function searchEmployees(employees) {
 
         cards.forEach(card => {
             const names = card.querySelector('.employee-name').textContent.toLowerCase();
-            const userNames = card.querySelector('#username').textContent.toLowerCase();
-            console.log(names);
-            console.log(userNames);
 
-            if (names.indexOf(searchTerm) > -1 || userNames.indexOf(searchTerm) > -1) {
+            if (names.indexOf(searchTerm) > -1) {
                 card.style.display = "";
             } else {
                 card.style.display = "none";

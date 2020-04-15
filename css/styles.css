@@ -46,7 +46,7 @@ input:hover {
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 1em;
-    margin: 10px;
+    margin: 10px auto;
 }
 
 .card {
@@ -67,8 +67,8 @@ input:hover {
 }
 
 .user-info {
-    margin: 10px auto;
-    text-align: center;
+    margin: auto auto auto 10px;
+    text-align: left;
 }
 
 .user-details p {
@@ -78,14 +78,17 @@ input:hover {
 
 .employee-name {
     margin: 10px 0;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 550;
 }
 
 .card img {
     border-radius: 50%;
-    margin: auto;
+    margin: 10px;
+    max-width: 130px;
+    max-height: 130px;
 }
+
 
 /**** MODAL BOX ****/
 /* The Modal (Background) */
@@ -132,9 +135,13 @@ input:hover {
 }
 
 .modal-picture {
-    width: 150px;
+    width: 170px;
     margin: 0;
     border-radius: 50%;
+}
+
+.modal-employee-info {
+    padding-top: 20px;
 }
 
 .arrow {
@@ -184,6 +191,11 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         column-gap: 1em;
         margin: 15px;
     }
+
+    .card {
+        display: inline-block;
+        text-align: center;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -203,5 +215,10 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         row-gap: 2em;
         /* width: 95%; */
         margin: 20px 0;
+    }
+
+    .card {
+        display: flex;
+        flex-wrap: wrap;    
     }
 }
